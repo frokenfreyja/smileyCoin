@@ -384,14 +384,10 @@ Value getticketlist(const Array& params, bool fHelp)
     for(std::set< std::pair< std::string, std::tuple<std::string, std::string, std::string, std::string, std::string, std::string> > >::const_iterator it = info.begin(); it!=info.end(); it++ )
     {
         std::string serviceAddress = get<1>(it->second);
-<<<<<<< HEAD
         std::string dateOfTicket = get<4>(it->second);
         
         //if (serviceAddress == address.ToString()) {
         if (serviceAddress == address.ToString() && is_before(dateOfTicket)) {
-=======
-        if (serviceAddress == address.ToString()) {
->>>>>>> 9d1495511b3b916838e9c651d4732d3a112cdcb4
             //obj.push_back(Pair("Sent to: ", get<0>(it->second)));
             // obj = NULL eða initialize-a objectið
             Object obj;
