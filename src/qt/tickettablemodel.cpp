@@ -52,10 +52,18 @@ public:
     CWallet *wallet;
     QList<TicketTableEntry> cachedTicketTable;
     TicketTableModel *parent;
+<<<<<<< HEAD
 
 
     TicketTablePriv(CWallet *wallet, TicketTableModel *parent):
             wallet(wallet), parent(parent) {}
+=======
+    std::string serviceFilter;
+
+
+    TicketTablePriv(std::string serviceFilter, CWallet *wallet, TicketTableModel *parent):
+            serviceFilter(serviceFilter), wallet(wallet), parent(parent) {}
+>>>>>>> 9d1495511b3b916838e9c651d4732d3a112cdcb4
 
     void refreshTicketTable()
     {
@@ -75,6 +83,7 @@ public:
                 for(std::multiset< std::pair< std::string, std::tuple<std::string, std::string, std::string> > >::const_iterator s = services.begin(); s!=services.end(); s++ )
                 {
                     // Display corresponding service name instead of address
+<<<<<<< HEAD
                     //if (QString::fromStdString(get<1>(t->second)) == QString::fromStdString(s->first)) {
                     if (QString::fromStdString(get<1>(t->second)) == QString::fromStdString(s->first) && is_before(get<4>(t->second))) {
                         cachedTicketTable.append(TicketTableEntry(QString::fromStdString(get<3>(t->second)),
@@ -83,6 +92,24 @@ public:
                                 QString::fromStdString(get<5>(t->second)),
                                 QString::fromStdString(t->first),
                                 QString::fromStdString(get<1>(s->second))));
+=======
+                    if (QString::fromStdString(get<1>(t->second)) == QString::fromStdString(s->first)) {
+                        if (serviceFilter == "All") {
+                            cachedTicketTable.append(TicketTableEntry(QString::fromStdString(get<3>(t->second)),
+                                    QString::fromStdString(get<2>(t->second)),
+                                    QString::fromStdString(get<4>(t->second)),
+                                    QString::fromStdString(get<5>(t->second)),
+                                    QString::fromStdString(t->first),
+                                    QString::fromStdString(get<1>(s->second))));
+                        } else if (serviceFilter == get<1>(s->second)) { // If dropdown selection matches service name
+                            cachedTicketTable.append(TicketTableEntry(QString::fromStdString(get<3>(t->second)),
+                                    QString::fromStdString(get<2>(t->second)),
+                                    QString::fromStdString(get<4>(t->second)),
+                                    QString::fromStdString(get<5>(t->second)),
+                                    QString::fromStdString(t->first),
+                                    QString::fromStdString(get<1>(s->second))));
+                        }
+>>>>>>> 9d1495511b3b916838e9c651d4732d3a112cdcb4
                     }
                 }
             }
@@ -169,11 +196,19 @@ public:
 
 };
 
+<<<<<<< HEAD
 TicketTableModel::TicketTableModel(CWallet *wallet, WalletModel *parent) :
         QAbstractTableModel(parent),walletModel(parent),wallet(wallet),priv(0)
 {
     columns << tr("Name") << tr("Location") << tr("Date and time") << tr("Price") << tr("Address") << tr("Service");
     priv = new TicketTablePriv(wallet, this);
+=======
+TicketTableModel::TicketTableModel(std::string serviceFilter, CWallet *wallet, WalletModel *parent) :
+        QAbstractTableModel(parent),walletModel(parent),wallet(wallet), serviceFilter(serviceFilter), priv(0)
+{
+    columns << tr("Name") << tr("Location") << tr("Date and time") << tr("Price") << tr("Address") << tr("Service");
+    priv = new TicketTablePriv(serviceFilter, wallet, this);
+>>>>>>> 9d1495511b3b916838e9c651d4732d3a112cdcb4
     priv->refreshTicketTable();
 }
 

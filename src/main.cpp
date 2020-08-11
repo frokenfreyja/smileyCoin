@@ -1841,7 +1841,10 @@ bool DisconnectBlock(CBlock& block, CValidationState& state, CBlockIndex* pindex
                     for (unsigned int l = 0; l < tx.vout.size(); l++) {
                         const CTxOut &outService = tx.vout[l];
                         const CScript &keyService = outService.scriptPubKey;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9d1495511b3b916838e9c651d4732d3a112cdcb4
                         std::string hexString = HexStr(keyService);
                         std::string hexData;
                         std::string newService;
@@ -1852,8 +1855,14 @@ bool DisconnectBlock(CBlock& block, CValidationState& state, CBlockIndex* pindex
 						// grab the hex data for the op_return
                         if (hexString.substr(0, 2) == "6a") {
                             hexData = hexString.substr(4, hexString.size());
+<<<<<<< HEAD
                             // NEW SERVICE
                             // If op_return starts with "NS" (new service)
+=======
+
+                            // New service
+                            // If op_return starts with "NS"
+>>>>>>> 9d1495511b3b916838e9c651d4732d3a112cdcb4
                             if (hexData.substr(0, 4) == "4e53") {
                                 newService = hexData.substr(4, hexString.size());
                                 std::vector<std::string> strs = splitString(newService, "20");
@@ -1862,6 +1871,7 @@ bool DisconnectBlock(CBlock& block, CValidationState& state, CBlockIndex* pindex
                                     serviceName = strs.at(0);
                                     serviceAddress = strs.at(1);
                                     serviceType = strs.at(2);
+<<<<<<< HEAD
 
                                     std::string asciiAddress = hexToAscii(serviceAddress);
                                     CBitcoinAddress sAddress = CBitcoinAddress(asciiAddress);
@@ -1870,6 +1880,14 @@ bool DisconnectBlock(CBlock& block, CValidationState& state, CBlockIndex* pindex
                                     hexToAscii(serviceType) == "3"|| hexToAscii(serviceType) == "4"||
                                     hexToAscii(serviceType) == "5"|| hexToAscii(serviceType) == "6")) {
                                         //if (sAddress.IsValid() && !ServiceList.IsService(asciiAddress) && (serviceName.length() <= 40) && (std::stoi(hexToAscii(serviceType)) > 0 && std::stoi(hexToAscii(serviceType)) <= 6)) {
+=======
+                                    std::string asciiAddress = hexToAscii(serviceAddress);
+                                    CBitcoinAddress sAddress = CBitcoinAddress(asciiAddress);
+                                    if (sAddress.IsValid() && !ServiceList.IsService(asciiAddress) && serviceName.length() <= 50 &&
+                                    (hexToAscii(serviceType) == "1" || hexToAscii(serviceType) == "2" ||
+                                    hexToAscii(serviceType) == "3"|| hexToAscii(serviceType) == "4"||
+                                    hexToAscii(serviceType) == "5"|| hexToAscii(serviceType) == "6")) {
+>>>>>>> 9d1495511b3b916838e9c651d4732d3a112cdcb4
                                         std::tuple<std::string, std::string, std::string> value;
                                         if (!view.GetServiceInfo(asciiAddress, value)) {
                                             return state.Abort(_("Failed to read service index"));
@@ -1891,6 +1909,7 @@ bool DisconnectBlock(CBlock& block, CValidationState& state, CBlockIndex* pindex
                 } else {
 					// if it is not sent to B9TRXJzgUJZZ5zPZbywtNfZHeu492WWRxc or doesn't have the value 10 SMLY
                     std::string toAddress = CBitcoinAddress(des).ToString();
+<<<<<<< HEAD
                     /*std::multiset<std::pair< std::string, std::tuple<std::string, std::string, std::string>>> retset;
                     ServiceList.GetServiceAddresses(retset);
                     bool isService = false;
@@ -1905,17 +1924,29 @@ bool DisconnectBlock(CBlock& block, CValidationState& state, CBlockIndex* pindex
 
                     // if the output is sent to a valid service address then check if it is a ubi, dex, book or npo
                     //if (CBitcoinAddress(toAddress).IsValid() && (std::find(serviceAddressList.begin(), serviceAddressList.end(), toAddress) != serviceAddressList.end())) {
+=======
+                    // if the output is sent to a valid service address then check if it is a ubi, dex, book or npo
+>>>>>>> 9d1495511b3b916838e9c651d4732d3a112cdcb4
                     if (CBitcoinAddress(toAddress).IsValid() && ServiceList.IsService(toAddress)) {
                         for(unsigned int l = 0; l < tx.vout.size(); l++) {
                             const CTxOut &outService = tx.vout[l];
                             const CScript &keyService = outService.scriptPubKey;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9d1495511b3b916838e9c651d4732d3a112cdcb4
                             std::string hexString = HexStr(keyService);
 
                             // check if the scriptPubKey contains op_return(6a)
 							if (hexString.substr(0, 2) == "6a") {
 								std::string hexData = hexString.substr(4, hexString.size());
+<<<<<<< HEAD
 								// If the string starts with "NT" (new ticket)
+=======
+
+								// New ticket
+								// If the string starts with "NT"
+>>>>>>> 9d1495511b3b916838e9c651d4732d3a112cdcb4
 								if (hexData.substr(0, 4) == "4e54") {
 									std::string newTicket = hexData.substr(4, hexString.size());
 									std::vector<std::string> strs = splitString(newTicket, "20");
@@ -1926,12 +1957,19 @@ bool DisconnectBlock(CBlock& block, CValidationState& state, CBlockIndex* pindex
 										std::string ticketDateAndTime = strs.at(2);
 										std::string ticketValue = strs.at(3);
 										std::string ticketAddress = strs.at(4);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9d1495511b3b916838e9c651d4732d3a112cdcb4
                                         std::string asciiAddress = hexToAscii(ticketAddress);
                                         CBitcoinAddress tAddress = CBitcoinAddress(asciiAddress);
                                         // if the ticket address is valid, the name and location are equal or less than 40,
                                         // date and time is on the right format and value is an integer then save it to the db
+<<<<<<< HEAD
                                         if (tAddress.IsValid() && is_number(hexToAscii(ticketValue)) && is_date(hexToAscii(ticketDateAndTime)) && is_before(hexToAscii(ticketDateAndTime)) && ticketLocation.length() <= 40 && ticketName.length() <= 40) {
+=======
+                                        if (tAddress.IsValid() && is_number(hexToAscii(ticketValue)) && is_date(hexToAscii(ticketDateAndTime)) && ticketLocation.length() <= 40 && ticketName.length() <= 40) {
+>>>>>>> 9d1495511b3b916838e9c651d4732d3a112cdcb4
 											std::tuple<std::string, std::string, std::string, std::string, std::string, std::string> value;
 											if(!view.GetTicketList(asciiAddress, value))
 												return state.Abort(_("Failed to read ticket index"));
@@ -1955,7 +1993,12 @@ bool DisconnectBlock(CBlock& block, CValidationState& state, CBlockIndex* pindex
 										}
 									}
 								}
+<<<<<<< HEAD
 								// If the string starts with "NU" (new ubi)
+=======
+								// New UBI
+								// If the string starts with "NU"
+>>>>>>> 9d1495511b3b916838e9c651d4732d3a112cdcb4
 								else if (hexData.substr(0, 4) == "4e55") {
 									std::string newUbi = hexData.substr(4, hexString.size());
 									std::vector<std::string> strs = splitString(newUbi, "20");
@@ -1976,7 +2019,12 @@ bool DisconnectBlock(CBlock& block, CValidationState& state, CBlockIndex* pindex
 										}
 									}
 								}
+<<<<<<< HEAD
 								// If the string starts with "ND" (new dex)
+=======
+								// New DEX
+								// If the string starts with "ND"
+>>>>>>> 9d1495511b3b916838e9c651d4732d3a112cdcb4
 								else if (hexData.substr(0, 4) == "4e44") {
 									std::string newDex = hexData.substr(4, hexString.size());
 									std::vector<std::string> strs = splitString(newDex, "20");
@@ -1998,7 +2046,12 @@ bool DisconnectBlock(CBlock& block, CValidationState& state, CBlockIndex* pindex
 										}
 									}
 								}
+<<<<<<< HEAD
 								// If the string starts with "NB" (new book chapter)
+=======
+								// New book chapter
+								// If the string starts with "NB"
+>>>>>>> 9d1495511b3b916838e9c651d4732d3a112cdcb4
 								else if (hexData.substr(0, 4) == "4e42") {
 									std::string newBookChapter = hexData.substr(4, hexString.size());
                                     std::vector<std::string> strs = splitString(newBookChapter, "20");
@@ -2021,7 +2074,11 @@ bool DisconnectBlock(CBlock& block, CValidationState& state, CBlockIndex* pindex
                                         }
                                     }
 								}
+<<<<<<< HEAD
                                 // DELETE SERVICE
+=======
+                                // Delete service
+>>>>>>> 9d1495511b3b916838e9c651d4732d3a112cdcb4
                                 // If op_return begins with "DS"
                                 if (hexData.substr(0, 4) == "4453") {
                                     std::string deleteService = hexData.substr(4, hexString.size());
@@ -2047,6 +2104,46 @@ bool DisconnectBlock(CBlock& block, CValidationState& state, CBlockIndex* pindex
                                         }
                                     }
                                 }
+<<<<<<< HEAD
+=======
+                                // Delete ticket
+                                // If op_return begins with "DT"
+                                if (hexData.substr(0, 4) == "4454") {
+                                    std::string deleteTicket = hexData.substr(4, hexString.size());
+                                    std::vector<std::string> strs = splitString(deleteTicket, "20");
+                                    // The string has to have 5 params to be valid as a service and saved into the db
+                                    if (strs.size() == 5) {
+                                        std::string ticketLocation = strs.at(0);
+                                        std::string ticketName = strs.at(1);
+                                        std::string ticketDateAndTime = strs.at(2);
+                                        std::string ticketValue = strs.at(3);
+                                        std::string ticketAddress = strs.at(4);
+
+                                        std::string asciiAddress = hexToAscii(ticketAddress);
+                                        CBitcoinAddress tAddress = CBitcoinAddress(asciiAddress);
+                                        // If the ticket address is valid then save it to the db
+                                        if (tAddress.IsValid() && ServiceItemList.IsTicket(asciiAddress)) {
+                                            LogPrintStr(" main2409 ALLT VALID I DT");
+                                            std::tuple<std::string, std::string, std::string, std::string, std::string, std::string> value;
+                                            value = std::make_tuple("DT", toAddress, hexToAscii(ticketLocation), hexToAscii(ticketName), hexToAscii(ticketDateAndTime), hexToAscii(ticketValue));
+                                            assert(view.SetTicketList(asciiAddress, value));
+                                            serviceTicketList[asciiAddress]=value;
+
+                                            if (pwalletMain)
+                                            {
+                                                pwalletMain->NotifyTicketPageChanged(pwalletMain,
+                                                        hexToAscii(ticketName),
+                                                        hexToAscii(ticketLocation),
+                                                        hexToAscii(ticketDateAndTime),
+                                                        hexToAscii(ticketValue),
+                                                        asciiAddress,
+                                                        toAddress,
+                                                        CT_DELETED);
+                                            }
+                                        }
+                                    }
+                                }
+>>>>>>> 9d1495511b3b916838e9c651d4732d3a112cdcb4
                             }
                         }
                     }
@@ -2317,26 +2414,42 @@ bool ConnectBlock(CBlock& block, CValidationState& state, CBlockIndex* pindex, C
 			const int64_t &value = out.nValue;
 
 			if (ContainsOpReturn(tx)) {
+<<<<<<< HEAD
 			    // SERVICE
+=======
+			    // Service
+>>>>>>> 9d1495511b3b916838e9c651d4732d3a112cdcb4
                 CTxDestination des;
                 ExtractDestination(key, des);
                 if (CBitcoinAddress(des).ToString() == "B9TRXJzgUJZZ5zPZbywtNfZHeu492WWRxc" && value == 10*COIN) {
                     for (unsigned int l = 0; l < tx.vout.size(); l++) {
                         const CTxOut &outService = tx.vout[l];
                         const CScript &keyService = outService.scriptPubKey;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9d1495511b3b916838e9c651d4732d3a112cdcb4
                         std::string hexString = HexStr(keyService);
                         std::string hexData;
                         std::string newService;
                         std::string serviceName;
                         std::string serviceAddress;
                         std::string serviceType;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9d1495511b3b916838e9c651d4732d3a112cdcb4
                         // Get the op_return hex value
                         if (hexString.substr(0, 2) == "6a") {
                             // Get the op_return value
                             hexData = hexString.substr(4, hexString.size());
+<<<<<<< HEAD
                             // Continue if data string begins with "NS" (new service)
+=======
+
+                            // New service
+                            // Continue if data string begins with "NS"
+>>>>>>> 9d1495511b3b916838e9c651d4732d3a112cdcb4
                             if (hexData.substr(0, 4) == "4e53") {
                                 // Retrieve data that follows "NS"
                                 newService = hexData.substr(4, hexString.size());
@@ -2345,16 +2458,26 @@ bool ConnectBlock(CBlock& block, CValidationState& state, CBlockIndex* pindex, C
                                     serviceName = strs.at(0);
                                     serviceAddress = strs.at(1);
                                     serviceType = strs.at(2);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9d1495511b3b916838e9c651d4732d3a112cdcb4
                                     std::string asciiAddress = hexToAscii(serviceAddress);
                                     CBitcoinAddress sAddress = CBitcoinAddress(asciiAddress);
 
                                     // Check whether address field contains a valid address
+<<<<<<< HEAD
                                     if (sAddress.IsValid() && !ServiceList.IsService(asciiAddress) && serviceName.length() <= 40
                                     && (hexToAscii(serviceType) == "1" || hexToAscii(serviceType) == "2" ||
                                     hexToAscii(serviceType) == "3"|| hexToAscii(serviceType) == "4"||
                                     hexToAscii(serviceType) == "5"|| hexToAscii(serviceType) == "6")) {
                                         //if (sAddress.IsValid() && !ServiceList.IsService(asciiAddress) && (serviceName.length() <= 40) && (std::stoi(hexToAscii(serviceType)) > 0 && std::stoi(hexToAscii(serviceType)) <= 6)) {
+=======
+                                    if (sAddress.IsValid() && !ServiceList.IsService(asciiAddress) && serviceName.length() <= 50
+                                    && (hexToAscii(serviceType) == "1" || hexToAscii(serviceType) == "2" ||
+                                    hexToAscii(serviceType) == "3"|| hexToAscii(serviceType) == "4"||
+                                    hexToAscii(serviceType) == "5"|| hexToAscii(serviceType) == "6")) {
+>>>>>>> 9d1495511b3b916838e9c651d4732d3a112cdcb4
                                         std::tuple<std::string, std::string, std::string> value;
                                         value = std::make_tuple("NS", hexToAscii(serviceName), hexToAscii(serviceType));
                                         assert(view.SetServiceInfo(asciiAddress, value));
@@ -2371,6 +2494,7 @@ bool ConnectBlock(CBlock& block, CValidationState& state, CBlockIndex* pindex, C
                             }
                         }
                     }
+<<<<<<< HEAD
                 } else {  //kommentad ut medan min addressa vid testun
                     // TICKET SALES
                     std::string toAddress = CBitcoinAddress(des).ToString();
@@ -2386,6 +2510,10 @@ bool ConnectBlock(CBlock& block, CValidationState& state, CBlockIndex* pindex, C
                     }*/
 
                     //if (CBitcoinAddress(toAddress).IsValid() && (std::find(serviceAddressList.begin(), serviceAddressList.end(), toAddress) != serviceAddressList.end())) {
+=======
+                } else {
+                    std::string toAddress = CBitcoinAddress(des).ToString();
+>>>>>>> 9d1495511b3b916838e9c651d4732d3a112cdcb4
                     if (CBitcoinAddress(toAddress).IsValid() && ServiceList.IsService(toAddress)) { // vantar && addressan er a service listanum
                         for (unsigned int l = 0; l < tx.vout.size(); l++) {
                             const CTxOut &outService = tx.vout[l];
@@ -2406,6 +2534,7 @@ bool ConnectBlock(CBlock& block, CValidationState& state, CBlockIndex* pindex, C
 										std::string ticketDateAndTime = strs.at(2);
 										std::string ticketValue = strs.at(3);
 										std::string ticketAddress = strs.at(4);
+<<<<<<< HEAD
 
                                         std::string asciiAddress = hexToAscii(ticketAddress);
                                         CBitcoinAddress tAddress = CBitcoinAddress(asciiAddress);
@@ -2424,6 +2553,12 @@ bool ConnectBlock(CBlock& block, CValidationState& state, CBlockIndex* pindex, C
                                         }
 										// If the ticket address is valid then save it to the db
 										if (tAddress.IsValid() && is_number(hexToAscii(ticketValue)) && is_date(hexToAscii(ticketDateAndTime)) && is_before(hexToAscii(ticketDateAndTime)) && ticketLocation.length() <= 40 && ticketName.length() <= 40) {
+=======
+                                        std::string asciiAddress = hexToAscii(ticketAddress);
+                                        CBitcoinAddress tAddress = CBitcoinAddress(asciiAddress);
+										// If the ticket address is valid then save it to the db
+										if (tAddress.IsValid() && is_number(hexToAscii(ticketValue)) && is_date(hexToAscii(ticketDateAndTime)) && ticketLocation.length() <= 40 && ticketName.length() <= 40) {
+>>>>>>> 9d1495511b3b916838e9c651d4732d3a112cdcb4
                                             LogPrintStr(" main2409 ALLT VALID");
 
                                             std::tuple<std::string, std::string, std::string, std::string, std::string, std::string> value;
@@ -2524,6 +2659,45 @@ bool ConnectBlock(CBlock& block, CValidationState& state, CBlockIndex* pindex, C
                                         }
                                     }
                                 }
+<<<<<<< HEAD
+=======
+                                // If op_return begins with "DT"
+                                if (hexData.substr(0, 4) == "4454") {
+                                    std::string deleteTicket = hexData.substr(4, hexString.size());
+                                    std::vector<std::string> strs = splitString(deleteTicket, "20");
+                                    // The string has to have 5 params to be valid as a service and saved into the db
+                                    if (strs.size() == 5) {
+                                        std::string ticketLocation = strs.at(0);
+                                        std::string ticketName = strs.at(1);
+                                        std::string ticketDateAndTime = strs.at(2);
+                                        std::string ticketValue = strs.at(3);
+                                        std::string ticketAddress = strs.at(4);
+
+                                        std::string asciiAddress = hexToAscii(ticketAddress);
+                                        CBitcoinAddress tAddress = CBitcoinAddress(asciiAddress);
+                                        // If the ticket address is valid then save it to the db
+                                        if (tAddress.IsValid() && ServiceItemList.IsTicket(asciiAddress)) {
+                                            LogPrintStr(" main2539 ALLT VALID I DT");
+                                            std::tuple<std::string, std::string, std::string, std::string, std::string, std::string> value;
+                                            value = std::make_tuple("DT", toAddress, hexToAscii(ticketLocation), hexToAscii(ticketName), hexToAscii(ticketDateAndTime), hexToAscii(ticketValue));
+                                            assert(view.SetTicketList(asciiAddress, value));
+                                            serviceTicketList[asciiAddress]=value;
+
+                                            if (pwalletMain)
+                                            {
+                                                pwalletMain->NotifyTicketPageChanged(pwalletMain,
+                                                        hexToAscii(ticketName),
+                                                        hexToAscii(ticketLocation),
+                                                        hexToAscii(ticketDateAndTime),
+                                                        hexToAscii(ticketValue),
+                                                        asciiAddress,
+                                                        toAddress,
+                                                        CT_DELETED);
+                                            }
+                                        }
+                                    }
+                                }
+>>>>>>> 9d1495511b3b916838e9c651d4732d3a112cdcb4
                             }
                         }
                     }

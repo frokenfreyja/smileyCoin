@@ -9,6 +9,7 @@
 
 #include "serviceitemlistdb.h"
 
+<<<<<<< HEAD
 #include "main.h"
 #include "base58.h"
 #include "chainparams.h"
@@ -17,6 +18,19 @@
 
 #include <boost/version.hpp>
 #include <boost/filesystem.hpp>
+=======
+#include "base58.h"
+#include "net.h"
+#include "netbase.h"
+#include "rpcserver.h"
+#include "util.h"
+#include <vector>
+
+#include "init.h"
+#include "main.h"
+#include "sync.h"
+#include "wallet.h"
+>>>>>>> 9d1495511b3b916838e9c651d4732d3a112cdcb4
 
 inline std::string TicketAction(const CServiceTicket &ai) {return get<0>(ai);}
 inline std::string TicketToAddress(const CServiceTicket &ai) {return get<1>(ai);}
@@ -46,7 +60,11 @@ bool CServiceItemList::UpdateTicketList(const std::map<std::string, std::tuple<s
 {
     for(std::map<std::string, std::tuple<std::string, std::string, std::string, std::string, std::string, std::string> >::const_iterator it = map.begin(); it!= map.end(); it++)
     {
+<<<<<<< HEAD
         if (get<0>(it->second) == "DT" || !is_before(get<4>(it->second)) ) { // If op_return begins with DT (delete ticket)
+=======
+        if (get<0>(it->second) == "DT") { // If op_return begins with DT (delete ticket)
+>>>>>>> 9d1495511b3b916838e9c651d4732d3a112cdcb4
             mapServiceTicketList::iterator itTicket = taddresses.find(it->first);
             // If key is found in ticket list
             if (itTicket != taddresses.end()) {
@@ -170,6 +188,20 @@ bool CServiceItemList::GetTicketList(std::multiset<std::pair<std::string, std::t
     return true;
 }
 
+<<<<<<< HEAD
+=======
+bool CServiceItemList::IsTicket(std::string address) {
+    for (std::map<std::string, std::tuple<std::string, std::string, std::string, std::string, std::string, std::string> >::const_iterator it = taddresses.begin();it != taddresses.end(); it++)
+    {
+        // If address found on ticket list
+        if (address == it->first) {
+            return true;
+        }
+    }
+    return false;
+}
+
+>>>>>>> 9d1495511b3b916838e9c651d4732d3a112cdcb4
 bool CServiceItemList::UpdateUbiList(const std::map<std::string, std::tuple<std::string, std::string> > &map)
 {
     for(std::map<std::string, std::tuple<std::string, std::string> >::const_iterator it = map.begin(); it!= map.end(); it++)
