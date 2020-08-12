@@ -390,8 +390,8 @@ Value getticketlist(const Array& params, bool fHelp)
         std::string serviceAddress = get<1>(it->second);
         std::string dateOfTicket = get<4>(it->second);
         
-            // Get the tickets for the service address 
-            if (serviceAddress == address.ToString() && is_before(dateOfTicket)) {
+            // Get the tickets for the service address
+            if (serviceAddress == address.ToString() && is_notoutdated(dateOfTicket)) {
             // Initializing an object for each service
             Object obj;
             obj.push_back(Pair("Name: ", get<3>(it->second)));
@@ -419,6 +419,13 @@ Value getubilist(const Array& params, bool fHelp)
     CBitcoinAddress address = CBitcoinAddress(params[0].get_str());
     if(!address.IsValid())
         throw runtime_error("Not a valid Smileycoin address");
+        
+    if (!ServiceList.IsService(params[0].get_str()))
+        throw runtime_error("Not a valid service address");
+
+    if (!ServiceList.IsUbiService(params[0].get_str()))
+        throw runtime_error("This Smileycoin service address is not a universal basic income service");
+    
     
     std::multiset<std::pair<std::string, std::tuple<std::string, std::string, std::string> > > services;
     ServiceList.GetServiceAddresses(services);
@@ -432,9 +439,6 @@ Value getubilist(const Array& params, bool fHelp)
             isUbi = true;
         }
     }
-    //if (!isService)
-    if (!ServiceList.IsService(params[0].get_str()))
-        throw runtime_error("Not a valid service address");
     
     //if (!IsMine(*pwalletMain, address.Get()))
     //   throw runtime_error("Not your service address, permission denied");
@@ -467,6 +471,11 @@ Value getdexlist(const Array& params, bool fHelp)
         throw runtime_error("getdexlist \"address\"\n"
                             "Returns all DEX addresses that belong to the specified DEX service address\n"
                             );
+
+                            
+    /*if (!ServiceList.IsDexService(params[0].get_str()))
+        throw runtime_error("This Smileycoin service address is not a ticket service");
+    */
     
     Object obj;
     std::multiset<std::pair< std::string, std::tuple<std::string, std::string, std::string>>> info;

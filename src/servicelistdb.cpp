@@ -183,6 +183,26 @@ bool CServiceList::IsTicketService(std::string address) {
     return false;
 }
 
+bool CServiceList::IsDexService(std::string address) {
+    for (std::map<std::string, std::tuple<std::string, std::string, std::string> >::const_iterator it = saddresses.begin();it != saddresses.end(); it++)
+    {
+        if (address == it->first && get<2>(it->second) == "6") {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool CServiceList::IsUbiService(std::string address) {
+    for (std::map<std::string, std::tuple<std::string, std::string, std::string> >::const_iterator it = saddresses.begin();it != saddresses.end(); it++)
+    {
+        if (address == it->first && get<2>(it->second) == "2") {
+            return true;
+        }
+    }
+    return false;
+}
+
 bool CServiceList::GetTickets(std::string serviceAddress, std::multiset<std::pair<std::string, std::tuple<std::string, std::string, std::string, std::string, std::string, std::string>>> &retset) const {
     std::multiset<std::pair<std::string, std::tuple<std::string, std::string, std::string, std::string, std::string, std::string > > > taddresses;
     ServiceItemList.GetTicketList(taddresses);

@@ -76,7 +76,7 @@ public:
                 for(std::multiset< std::pair< std::string, std::tuple<std::string, std::string, std::string> > >::const_iterator s = services.begin(); s!=services.end(); s++ )
                 {
                     // Display corresponding service name instead of address
-                    if (QString::fromStdString(get<1>(t->second)) == QString::fromStdString(s->first) && is_before(get<4>(t->second))) {
+                    if (QString::fromStdString(get<1>(t->second)) == QString::fromStdString(s->first) && is_notoutdated(get<4>(t->second))) {
                          if (serviceFilter == "All") {
                             cachedTicketTable.append(TicketTableEntry(QString::fromStdString(get<3>(t->second)),
                                     QString::fromStdString(get<2>(t->second)),
@@ -84,7 +84,7 @@ public:
                                     QString::fromStdString(get<5>(t->second)),
                                     QString::fromStdString(t->first),
                                     QString::fromStdString(get<1>(s->second))));
-                        } else if (serviceFilter == get<1>(s->second) && is_before(get<4>(t->second))) { // If dropdown selection matches service name
+                        } else if (serviceFilter == get<1>(s->second) && is_notoutdated(get<4>(t->second))) { // If dropdown selection matches service name
                             cachedTicketTable.append(TicketTableEntry(QString::fromStdString(get<3>(t->second)),
                                     QString::fromStdString(get<2>(t->second)),
                                     QString::fromStdString(get<4>(t->second)),

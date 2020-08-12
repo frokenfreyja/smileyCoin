@@ -271,7 +271,7 @@ inline bool is_date(std::string s)
 }
 
 
-inline bool is_before(std::string dateOfTicket)
+inline bool is_notoutdated(std::string dateOfTicket)
 {
     time_t now = time(NULL);
     time_t tTicket;
