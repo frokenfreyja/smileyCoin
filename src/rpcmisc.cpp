@@ -373,9 +373,13 @@ Value getticketlist(const Array& params, bool fHelp)
             isService = true;
         }
     }*/
+    
     if (!ServiceList.IsService(params[0].get_str()))
         throw runtime_error("Invalid Smileycoin service address");
 
+    if (!ServiceList.IsTicketService(params[0].get_str()))
+        throw runtime_error("This Smileycoin service address is not a ticket service");
+    
     Object obj2;
     Array arr;
     std::multiset<std::pair<std::string, std::tuple<std::string, std::string, std::string, std::string, std::string, std::string > > > info;
@@ -386,10 +390,9 @@ Value getticketlist(const Array& params, bool fHelp)
         std::string serviceAddress = get<1>(it->second);
         std::string dateOfTicket = get<4>(it->second);
         
-        //if (serviceAddress == address.ToString()) {
-        if (serviceAddress == address.ToString() && is_before(dateOfTicket)) {
-            //obj.push_back(Pair("Sent to: ", get<0>(it->second)));
-            // obj = NULL eða initialize-a objectið
+            // Get the tickets for the service address 
+            if (serviceAddress == address.ToString() && is_before(dateOfTicket)) {
+            // Initializing an object for each service
             Object obj;
             obj.push_back(Pair("Name: ", get<3>(it->second)));
             obj.push_back(Pair("Location: ", get<2>(it->second)));

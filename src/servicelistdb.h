@@ -25,6 +25,7 @@ public:
     bool GetMyServiceAddresses(std::multiset<std::pair<std::string, std::tuple<std::string, std::string, std::string>>> &retset) const;
     bool GetTickets(std::string serviceAddress, std::multiset<std::pair<std::string, std::tuple<std::string, std::string, std::string, std::string, std::string, std::string>>> &retset) const;
     bool IsService(std::string address);
+    bool IsTicketService(std::string address);
     bool SetForked(const bool &fFork);
     bool IsForked(){return fForked;}
     bool UpdateServiceInfo(const std::map<std::string, std::tuple<std::string, std::string, std::string> > &map);

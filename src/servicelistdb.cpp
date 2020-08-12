@@ -173,6 +173,16 @@ bool CServiceList::IsService(std::string address) {
     return false;
 }
 
+bool CServiceList::IsTicketService(std::string address) {
+    for (std::map<std::string, std::tuple<std::string, std::string, std::string> >::const_iterator it = saddresses.begin();it != saddresses.end(); it++)
+    {
+        if (address == it->first && get<2>(it->second) == "1") {
+            return true;
+        }
+    }
+    return false;
+}
+
 bool CServiceList::GetTickets(std::string serviceAddress, std::multiset<std::pair<std::string, std::tuple<std::string, std::string, std::string, std::string, std::string, std::string>>> &retset) const {
     std::multiset<std::pair<std::string, std::tuple<std::string, std::string, std::string, std::string, std::string, std::string > > > taddresses;
     ServiceItemList.GetTicketList(taddresses);
